@@ -14,7 +14,7 @@ def api_client():
 def booking_dates():
     today = datetime.today()
     checkin_date = today + timedelta(days=10)
-    checkout_date = today + timedelta(days=5)
+    checkout_date = checkin_date + timedelta(days=5)
 
     return {
         "checkin": checkin_date.strftime("%Y-%m-%d"),
@@ -28,13 +28,15 @@ def generate_random_booking_data(booking_dates):
     lastname = faker.last_name()
     totalprice = faker.random_number(digits=3)
     depositpaid = faker.boolean()
+    bookingdates = booking_dates
     additionalneeds = faker.sentence()
 
     data = {
-        "first_name": firstname,
-        "last_name": lastname,
+        "firstname": firstname,
+        "lastname": lastname,
         "totalprice": totalprice,
         "depositpaid": depositpaid,
+        "bookingdates": bookingdates,
         "additionalneeds": additionalneeds,
     }
 

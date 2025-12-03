@@ -3,9 +3,9 @@ from pydantic import ValidationError
 from core.models.booking import BookingResponse
 
 @allure.feature('Booking creation')
-@allure.title('Test create booking')
+@allure.title('Test create booking without required fields')
 
-def test_create_booking(api_client):
+def test_create_booking_with_only_required_fields(api_client):
     with allure.step('Create booking'):
         booking_data = {
             "firstname": "Jim",
@@ -16,7 +16,6 @@ def test_create_booking(api_client):
                 "checkin": "2018-01-01",
                 "checkout": "2019-01-01"
             },
-            "additionalneeds": "Breakfast"
         }
         response = api_client.create_booking(booking_data)
         try:
