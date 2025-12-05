@@ -27,11 +27,13 @@ def test_create_booking(api_client):
         except ValidationError as e:
             raise ValidationError(f"Response validation failed: {e}")
 
-        expected = booking_data
-        actual = response["booking"]
-
-        assert actual.items() >= expected.items()
-        assert actual["bookingdates"].items() >= expected["bookingdates"].items()
+        assert response['booking']['firstname'] == booking_data['firstname']
+        assert response['booking']['lastname'] == booking_data['lastname']
+        assert response['booking']['totalprice'] == booking_data['totalprice']
+        assert response['booking']['depositpaid'] == booking_data['depositpaid']
+        assert response['booking']['bookingdates']['checkin'] == booking_data['bookingdates']['checkin']
+        assert response['booking']['bookingdates']['checkout'] == booking_data['bookingdates']['checkout']
+        assert response['booking']['additionalneeds'] == booking_data['additionalneeds']
 
 
 @allure.title('Test create booking with only required fields')
@@ -53,11 +55,12 @@ def test_create_booking_with_only_required_fields(api_client):
         except ValidationError as e:
             raise ValidationError(f"Response validation failed: {e}")
 
-        expected = booking_data
-        actual = response["booking"]
-
-        assert actual.items() >= expected.items()
-        assert actual["bookingdates"].items() >= expected["bookingdates"].items()
+        assert response['booking']['firstname'] == booking_data['firstname']
+        assert response['booking']['lastname'] == booking_data['lastname']
+        assert response['booking']['totalprice'] == booking_data['totalprice']
+        assert response['booking']['depositpaid'] == booking_data['depositpaid']
+        assert response['booking']['bookingdates']['checkin'] == booking_data['bookingdates']['checkin']
+        assert response['booking']['bookingdates']['checkout'] == booking_data['bookingdates']['checkout']
 
 
 @allure.title('Test create booking without required fields')
@@ -83,9 +86,11 @@ def test_create_booking_random_data(api_client, generate_random_booking_data):
         except ValidationError as e:
             raise ValidationError(f"Response validation failed: {e}")
 
-        actual = response["booking"]
-
-        assert actual.items() >= booking_data.items()
-        assert actual["bookingdates"].items() >= booking_data["bookingdates"].items()
+        assert response['booking']['firstname'] == booking_data['firstname']
+        assert response['booking']['lastname'] == booking_data['lastname']
+        assert response['booking']['totalprice'] == booking_data['totalprice']
+        assert response['booking']['depositpaid'] == booking_data['depositpaid']
+        assert response['booking']['bookingdates']['checkin'] == booking_data['bookingdates']['checkin']
+        assert response['booking']['bookingdates']['checkout'] == booking_data['bookingdates']['checkout']
 
 
